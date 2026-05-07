@@ -1,0 +1,26 @@
+import React, { useEffect, useState } from "react";
+import { supabase } from "../lib/supabase";
+import type { User } from "@supabase/supabase-js";
+const useAuth = () => {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    supabase.auth.getSession().then((data) => {
+      const sessions = data.data.session;
+      setUser(sessions?.user ?? null);
+      setLoading(false);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  });
+
+  return { user, loading };
+};
+
+export default useAuth;
