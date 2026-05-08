@@ -73,6 +73,6 @@ export default defineConfig([
 
 ## Note
 
-Gatau ini bakalan jadi atau enggak bikinya setengah niat soalnya
 
 ```
+Gatau ini bakalan jadi atau enggak bikinya setengah niat soalnya
